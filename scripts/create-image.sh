@@ -348,11 +348,11 @@ mount -t sysfs /sys ${MOUNT_POINT}/sys
 mount -t proc /proc ${MOUNT_POINT}/proc
 
 # do this to avoid failing apt installs due to a too old fs-cache
-chroot ${MOUNT_POINT} apt-get update
+chroot ${MOUNT_POINT} xbps-install -Su && xpbs-install -Su
 
 if [ "${UEFI32}" = "true" ]; then
-  chroot ${MOUNT_POINT} apt-get -yq install grub2-common grub-efi-ia32 grub-efi-ia32-bin
-  chroot ${MOUNT_POINT} grub-install --target=i386-efi /dev/loop0p1 --efi-directory=/boot/efi/ --boot-directory=/boot/
+  # chroot ${MOUNT_POINT} apt-get -yq install grub2-common grub-efi-ia32 grub-efi-ia32-bin
+  # chroot ${MOUNT_POINT} grub-install --target=i386-efi /dev/loop0p1 --efi-directory=/boot/efi/ --boot-directory=/boot/
   # debian needs some extra steps to enable fallback boot sometimes required to boot from external media
   if [ "${3}" = "bullseye" ] || [ "$3" = "bookworm" ]; then
     chroot ${MOUNT_POINT} mkdir -p /boot/efi/EFI/BOOT
@@ -361,16 +361,16 @@ if [ "${UEFI32}" = "true" ]; then
   fi
 fi
 
-if [ "${UEFI64}" = "true" ]; then
-  chroot ${MOUNT_POINT} apt-get -yq install grub2-common grub-efi-amd64 grub-efi-amd64-bin
-  chroot ${MOUNT_POINT} grub-install --target=x86_64-efi /dev/loop0p1 --efi-directory=/boot/efi/ --boot-directory=/boot/
+# if [ "${UEFI64}" = "true" ]; then
+  # chroot ${MOUNT_POINT} apt-get -yq install grub2-common grub-efi-amd64 grub-efi-amd64-bin
+  # chroot ${MOUNT_POINT} grub-install --target=x86_64-efi /dev/loop0p1 --efi-directory=/boot/efi/ --boot-directory=/boot/
   # debian needs some extra steps to enable fallback boot sometimes required to boot from external media
-  if [ "${3}" = "bullseye" ] || [ "$3" = "bookworm" ]; then
-    chroot ${MOUNT_POINT} mkdir -p /boot/efi/EFI/BOOT
-    chroot ${MOUNT_POINT} cp /boot/efi/EFI/debian/grubx64.efi /boot/efi/EFI/BOOT/BOOTX64.EFI
-    chroot ${MOUNT_POINT} cp /usr/share/images/desktop-base/desktop-grub.png /boot/grub
-  fi
-fi
+  # if [ "${3}" = "bullseye" ] || [ "$3" = "bookworm" ]; then
+  #   chroot ${MOUNT_POINT} mkdir -p /boot/efi/EFI/BOOT
+  #   chroot ${MOUNT_POINT} cp /boot/efi/EFI/debian/grubx64.efi /boot/efi/EFI/BOOT/BOOTX64.EFI
+  #   chroot ${MOUNT_POINT} cp /usr/share/images/desktop-base/desktop-grub.png /boot/grub
+#   fi
+# fi
 
 if [ "${MBR}" = "true" ]; then
   chroot ${MOUNT_POINT} apt-get -yq install grub2-common grub-pc grub-pc-bin
