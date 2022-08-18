@@ -75,7 +75,7 @@ if [ ! -d ${BUILD_ROOT_CACHE} ]; then
   if [ "${2}" = "void" ]; then
     LANG=C curl https://repo-default.voidlinux.org/live/20210930/void-aarch64-ROOTFS-20210930.tar.xz --output /void.tar.xz
     tar xvf /void.tar.xz  ${BUILD_ROOT_CACHE}/
-    ln ${BUILD_ROOT_CACHE}
+    ln ${BUILD_ROOT_CACHE} ${BUILD_ROOT}
     # exit if debootstrap failed for some reason
     if [ "$?" != "0" ]; then
       echo ""
@@ -144,7 +144,7 @@ if [ ! -d ${BUILD_ROOT_CACHE} ]; then
    # sed -i "s,UBUNTUVERSION,focal,g" ${BUILD_ROOT_CACHE}/etc/apt/sources.list
   fi
 
-  cp ${WORKDIR}/scripts/create-chroot-stage-01.sh ${BUILD_ROOT_CACHE}
+  cp ${WORKDIR}/scripts/create-chroot-stage-01.sh ${BUILD_ROOT_CACHE}/
 
   mount -o bind /dev ${BUILD_ROOT_CACHE}/dev
   mount -o bind /dev/pts ${BUILD_ROOT_CACHE}/dev/pts
