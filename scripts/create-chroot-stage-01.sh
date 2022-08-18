@@ -18,7 +18,7 @@ if [ "$1" = "void" ]; then
   xbps-install locales vim openssh ssh-askpass sudo net-tools ifupdown inetutils-ping kmod less rsync u-boot-tools usbutils dosfstools mesa mesa-dri mesa-panfrost-dri xfce4 linux-firmware lvm2 cryptsetup cryptsetup-devel lightdm-gtk-greeter rsyslog btrfs-progs dialog libllvm10 gptfdisk lz4 vboot-utils plymouth xorg-video-drivers xorg-input-drivers xinput gnome-system-monitor
   # light-locker is broken in ubuntu focal after resume from suspend so remove it
   # the xfce internal locker works fine, so the locking functionality is still there
-  apt-get -yq remove light-locker
+  # apt-get -yq remove light-locker
 # libllvm14 is here for the self built mesa
 elif [ "$1" = "jammy" ]; then
   apt-get -yq install locales vim openssh-server ssh-askpass sudo net-tools ifupdown iputils-ping kmod less rsync u-boot-tools usbutils dosfstools mesa mesa-utils-extra console-data xubuntu-desktop linux-firmware lvm2 cryptsetup-bin slick-greeter rsyslog btrfs-progs btrfs-compsize dialog cgpt lz4 vboot-utils plymouth plymouth-theme-xubuntu-logo plymouth-theme-xubuntu-text xserver-xorg-video-fbdev xinput rfkill gnome-system-monitor libllvm14 iptables
