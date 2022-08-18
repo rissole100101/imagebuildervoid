@@ -380,9 +380,9 @@ fi
 # this currently would only be used by snapdragon_835 systems and does not seem to work yet with
 # the native arm64 grub included in focal and bullseye so it is made to fail currently by
 # specifying the not existing /boot/selected.dtb
-if [ "${UEFI64ARM}" = "true" ]; then
-  chroot ${MOUNT_POINT} apt-get -yq install grub2-common grub-efi-arm64 grub-efi-arm64-bin
-  chroot ${MOUNT_POINT} grub-install --target=arm64-efi /dev/loop0p1 --efi-directory=/boot/efi/ --boot-directory=/boot/ --no-nvram --no-bootsector --dtb=/boot/selected.dtb --removable
+# if [ "${UEFI64ARM}" = "true" ]; then
+#   chroot ${MOUNT_POINT} apt-get -yq install grub2-common grub-efi-arm64 grub-efi-arm64-bin
+#   chroot ${MOUNT_POINT} grub-install --target=arm64-efi /dev/loop0p1 --efi-directory=/boot/efi/ --boot-directory=/boot/ --no-nvram --no-bootsector --dtb=/boot/selected.dtb --removable
 #  # debian needs some extra steps to enable fallback boot sometimes required to boot from external media
 #  if [ "${3}" = "bullseye" ] || [ "$3" = "bookworm" ]; then
 #    chroot ${MOUNT_POINT} mkdir -p /boot/efi/EFI/BOOT
