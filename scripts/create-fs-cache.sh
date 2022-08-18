@@ -73,16 +73,18 @@ if [ ! -d ${BUILD_ROOT_CACHE} ]; then
   fi
   mkdir -p ${BUILD_ROOT_CACHE}/etc/apt
   if [ "${2}" = "void" ]; then
-    LANG=C curl https://repo-default.voidlinux.org/live/20210930/void-aarch64-${BOOTSTRAP_ARCH}-20210930.tar.xz --output void.tar.xz
+    LANG=C curl https://repo-default.voidlinux.org/live/20210930/void-aarch64-ROOTFS-20210930.tar.xz --output /void.tar.xz
+    tar xvf /void.tar.xz  ${BUILD_ROOT_CACHE}/
+    ln ${BUILD_ROOT_CACHE}
     # exit if debootstrap failed for some reason
     if [ "$?" != "0" ]; then
       echo ""
-      echo "error while running debootstrap - giving up"
+      echo "error while setting up - giving up"
       echo ""
       rm -rf ${BUILD_ROOT_CACHE}
       exit 1
     fi
-    cp ${WORKDIR}/files/focal-${BOOTSTRAP_ARCH}-sources.list ${BUILD_ROOT_CACHE}/etc/apt/sources.list
+    # cp ${WORKDIR}/files/focal-${BOOTSTRAP_ARCH}-sources.list ${BUILD_ROOT_CACHE}/etc/apt/sources.list
     # parse in the proper ubuntu version
    # sed -i "s,UBUNTUVERSION,focal,g" ${BUILD_ROOT_CACHE}/etc/apt/sources.list
  # elif [ "${2}" = "jammy" ]; then
@@ -106,7 +108,7 @@ if [ ! -d ${BUILD_ROOT_CACHE} ]; then
       echo ""
       echo "error while running debootstrap - giving up"
       echo ""
-      rm -rf ${BUILD_ROOT_CACHE}
+      # rm -rf ${BUILD_ROOT_CACHE}
       exit 1
     fi
     cp ${WORKDIR}/files/bullseye-${BOOTSTRAP_ARCH}-sources.list ${BUILD_ROOT_CACHE}/etc/apt/sources.list
