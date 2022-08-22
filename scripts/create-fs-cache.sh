@@ -15,7 +15,7 @@ if [ "$#" != "2" ]; then
   echo ""
   echo "possible release options:"
   echo "- void - void linux (wip)"
-  echo ""
+  echo "- arch - arch linux (wip)"
   echo "example: $0 armv7l focal"
   echo ""
   exit 1
@@ -87,8 +87,10 @@ if [ ! -d ${BUILD_ROOT_CACHE} ]; then
     # cp ${WORKDIR}/files/focal-${BOOTSTRAP_ARCH}-sources.list ${BUILD_ROOT_CACHE}/etc/apt/sources.list
     # parse in the proper ubuntu version
    # sed -i "s,UBUNTUVERSION,focal,g" ${BUILD_ROOT_CACHE}/etc/apt/sources.list
- # elif [ "${2}" = "jammy" ]; then
-  #  LANG=C debootstrap --variant=minbase --arch=${BOOTSTRAP_ARCH} ${2} ${BUILD_ROOT_CACHE} http://${SERVER_PREFIX}ubuntu.com/${SERVER_POSTFIX}
+ elif [ "${2}" = "arch" ]; then
+  LANG=C curl http://os.archlinuxarm.org/os/ArchLinuxARM-aarch64-chromebook-latest.tar.gz --output /arch.tar.gz
+    tar xf /arch.tar.gz  ${BUILD_ROOT_CACHE}/
+    ln ${BUILD_ROOT_CACHE} ${BUILD_ROOT}
     # exit if debootstrap failed for some reason
     if [ "$?" != "0" ]; then
       echo ""
@@ -100,7 +102,7 @@ if [ ! -d ${BUILD_ROOT_CACHE} ]; then
    # cp ${WORKDIR}/files/focal-${BOOTSTRAP_ARCH}-sources.list ${BUILD_ROOT_CACHE}/etc/apt/sources.list
     # parse in the proper ubuntu version
   #  sed -i "s,UBUNTUVERSION,jammy,g" ${BUILD_ROOT_CACHE}/etc/apt/sources.list
-#  elif [ "${2}" = "bullseye" ]; then
+#  elif [ "${2}" = "arch" ]; then
  #   wget https://ftp-master.debian.org/keys/release-11.asc -qO- | gpg --import --no-default-keyring --keyring ${DOWNLOAD_DIR}/debian-release-11.gpg
   #  LANG=C debootstrap --keyring=${DOWNLOAD_DIR}/debian-release-11.gpg --variant=minbase --arch=${BOOTSTRAP_ARCH} ${2} ${BUILD_ROOT_CACHE} http://deb.debian.org/debian/
     # exit if debootstrap failed for some reason
@@ -108,10 +110,10 @@ if [ ! -d ${BUILD_ROOT_CACHE} ]; then
       echo ""
       echo "error while running debootstrap - giving up"
       echo ""
-      # rm -rf ${BUILD_ROOT_CACHE}
+      rm -rf ${BUILD_ROOT_CACHE}
       exit 1
     fi
-    cp ${WORKDIR}/files/bullseye-${BOOTSTRAP_ARCH}-sources.list ${BUILD_ROOT_CACHE}/etc/apt/sources.list
+   # cp ${WORKDIR}/files/bullseye-${BOOTSTRAP_ARCH}-sources.list ${BUILD_ROOT_CACHE}/etc/apt/sources.list
     # parse in the proper debian version
    # sed -i "s,DEBIANVERSION,bullseye,g" ${BUILD_ROOT_CACHE}/etc/apt/sources.list
  # elif [ "${2}" = "bookworm" ]; then
