@@ -90,8 +90,8 @@ mount -t sysfs /sys ${BUILD_ROOT}/sys
 mount -t proc /proc ${BUILD_ROOT}/proc
 
 # do this to avoid failing apt installs due to a too old fs-cache
-chroot ${BUILD_ROOT} xbps-install -Su && xpbs-install -Su
-
+# chroot ${BUILD_ROOT} xbps-install -Su && xpbs-install -Su
+chroot ${BUILD_ROOT} pacman -Syu
 cp ${WORKDIR}/scripts/create-chroot-stage-02.sh ${BUILD_ROOT}
 
 chroot ${BUILD_ROOT} /create-chroot-stage-02.sh ${3} ${DEFAULT_USERNAME}
