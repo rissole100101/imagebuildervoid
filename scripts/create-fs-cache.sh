@@ -16,7 +16,7 @@ if [ "$#" != "2" ]; then
   echo "possible release options:"
   echo "- void - void linux (wip)"
   echo "- arch - arch linux (wip)"
-  echo "example: $0 armv7l focal"
+  echo "example: $0 armv7l arch"
   echo ""
   exit 1
 fi
@@ -75,7 +75,7 @@ if [ ! -d ${BUILD_ROOT_CACHE} ]; then
   if [ "${2}" = "void" ]; then
     LANG=C curl https://repo-default.voidlinux.org/live/20210930/void-aarch64-ROOTFS-20210930.tar.xz --output /void.tar.xz
     tar xvf /void.tar.xz  ${BUILD_ROOT_CACHE}/
-    ln ${BUILD_ROOT_CACHE} ${BUILD_ROOT}
+    ln -s ${BUILD_ROOT_CACHE} ${BUILD_ROOT}
     # exit if debootstrap failed for some reason
     if [ "$?" != "0" ]; then
       echo ""
@@ -88,9 +88,9 @@ if [ ! -d ${BUILD_ROOT_CACHE} ]; then
     # parse in the proper ubuntu version
    # sed -i "s,UBUNTUVERSION,focal,g" ${BUILD_ROOT_CACHE}/etc/apt/sources.list
  elif [ "${2}" = "arch" ]; then
-  LANG=C curl http://os.archlinuxarm.org/os/ArchLinuxARM-aarch64-chromebook-latest.tar.gz --output /arch.tar.gz
+  LANG=C curl http://ca.us.mirror.archlinuxarm.org/os/ArchLinuxARM-aarch64-chromebook-latest.tar.gz --output /arch.tar.gz
     tar xf /arch.tar.gz  ${BUILD_ROOT_CACHE}/
-    ln ${BUILD_ROOT_CACHE} ${BUILD_ROOT}
+    ln -s ${BUILD_ROOT_CACHE} ${BUILD_ROOT}
     # exit if debootstrap failed for some reason
     if [ "$?" != "0" ]; then
       echo ""
