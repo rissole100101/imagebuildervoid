@@ -9,8 +9,8 @@ export DEBIAN_FRONTEND=noninteractive
 
 export LANG=C
 # update twice to make sure
-xbps-install -Su
-xbps-install -Su
+# xbps-install -Su
+# xbps-install -Su
 # slick greeter is required as the default one seems to have problems on 32bit systems
 # see: https://bluesabre.org/2019/10/20/install-xubuntu-19-10-on-a-raspberry-pi-4/
 # libllvm10 is here for the self built mesa
@@ -20,8 +20,8 @@ if [ "$1" = "void" ]; then
   # the xfce internal locker works fine, so the locking functionality is still there
   # apt-get -yq remove light-locker
 # libllvm14 is here for the self built mesa
-elif [ "$1" = "jammy" ]; then
-  apt-get -yq install locales vim openssh-server ssh-askpass sudo net-tools ifupdown iputils-ping kmod less rsync u-boot-tools usbutils dosfstools mesa mesa-utils-extra console-data xubuntu-desktop linux-firmware lvm2 cryptsetup-bin slick-greeter rsyslog btrfs-progs btrfs-compsize dialog cgpt lz4 vboot-utils plymouth plymouth-theme-xubuntu-logo plymouth-theme-xubuntu-text xserver-xorg-video-fbdev xinput rfkill gnome-system-monitor libllvm14 iptables
+elif [ "$1" = "arch" ]; then
+  pacman -Syu ruby-locale vim openssh-server sshpass sudo net-tools inetutils iputils-ping kmod less rsync uboot-tools usbutils dosfstools mesa mesa-utils linuxconsole xfce4 xfce4-goodies linux-firmware lvm2 cryptsetup lightdm-slick-greeter rsyslog btrfs-progs dialog lz4 vboot-utils xf86-video-fbdev xorg-xinput gnome-system-monitor libllvm13 iptables
 # libllvm11 is here for the self built mesa
 elif [ "$1" = "bullseye" ]; then 
   apt-get -yq install locales vim openssh-server ssh-askpass sudo net-tools ifupdown iputils-ping kmod less rsync u-boot-tools usbutils dosfstools mesa-utils mesa-utils-extra console-data task-xfce-desktop xserver-xorg-input-synaptics blueman firmware-linux-free firmware-linux firmware-linux-nonfree firmware-misc-nonfree firmware-brcm80211 firmware-iwlwifi firmware-intel-sound firmware-samsung firmware-libertas firmware-realtek firmware-qcom-soc firmware-qcom-media firmware-atheros pulseaudio pavucontrol lvm2 cryptsetup-bin cryptsetup slick-greeter btrfs-progs btrfs-compsize dialog cgpt liblz4-tool vboot-kernel-utils bc plymouth plymouth-themes xserver-xorg-video-fbdev xinput rfkill curl onboard gnome-system-tools gnome-system-monitor libllvm11
