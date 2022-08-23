@@ -348,7 +348,7 @@ mount -t sysfs /sys ${MOUNT_POINT}/sys
 mount -t proc /proc ${MOUNT_POINT}/proc
 
 # do this to avoid failing apt installs due to a too old fs-cache
-chroot ${MOUNT_POINT} xbps-install -Su && xpbs-install -Su
+chroot ${MOUNT_POINT} pacman -Syu
 
 if [ "${UEFI32}" = "true" ]; then
   # chroot ${MOUNT_POINT} apt-get -yq install grub2-common grub-efi-ia32 grub-efi-ia32-bin
@@ -372,10 +372,10 @@ fi
 #   fi
 # fi
 
-if [ "${MBR}" = "true" ]; then
-  chroot ${MOUNT_POINT} apt-get -yq install grub2-common grub-pc grub-pc-bin
-  chroot ${MOUNT_POINT} grub-install /dev/loop0
-fi
+# if [ "${MBR}" = "true" ]; then
+#   chroot ${MOUNT_POINT} apt-get -yq install grub2-common grub-pc grub-pc-bin
+#   chroot ${MOUNT_POINT} grub-install /dev/loop0
+# fi
 
 # this currently would only be used by snapdragon_835 systems and does not seem to work yet with
 # the native arm64 grub included in focal and bullseye so it is made to fail currently by
